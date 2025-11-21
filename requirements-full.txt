@@ -1,21 +1,28 @@
-# Core Application - Lite Version (Fast Deploy)
+# Core Application
 streamlit==1.31.0
 python-dotenv==1.0.1
 
 # AI/ML
 anthropic==0.18.1
+chromadb==0.4.22
 
 # Financial Data
 yfinance==0.2.36
 pandas==2.2.0
 numpy==1.26.3
 
-# Visualization
-plotly==5.18.0
+# Web Scraping & APIs
+requests==2.31.0
+beautifulsoup4==4.12.3
+youtube-transcript-api==0.6.2
 
 # Data Processing
 pyyaml==6.0.1
 Pillow==10.2.0
 
+# Visualization
+plotly==5.18.0
+
 # Utilities
 python-dateutil==2.8.2
+pytz==2024.1
