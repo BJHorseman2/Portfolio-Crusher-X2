@@ -331,6 +331,10 @@ def enrich_positions(
             if 'quantity' in pos and pos['quantity']:
                 quantity = float(pos['quantity'])
                 enriched_pos['current_value'] = quantity * current_price
+                enriched_pos['value'] = enriched_pos['current_value']  # Add 'value' field for compatibility
+            elif 'value' in pos and pos['value']:
+                # If value already exists, keep it
+                enriched_pos['current_value'] = float(pos['value'])
 
             # Calculate gain/loss if cost basis is available
             if 'cost_basis' in pos and pos['cost_basis']:
