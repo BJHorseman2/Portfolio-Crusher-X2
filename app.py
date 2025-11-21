@@ -26,7 +26,15 @@ from theme_analyzer import analyze_all_themes
 from tax_loss_harvester import generate_harvest_plan
 from rebalancer import calculate_rebalancing_needs, generate_rebalancing_trades
 from ai_analyzer import AIAnalyzer
-from rag_engine import initialize_rag_db, query_context
+
+# RAG engine is optional (requires additional packages)
+try:
+    from rag_engine import initialize_rag_db, query_context
+    RAG_AVAILABLE = True
+except ImportError:
+    RAG_AVAILABLE = False
+    initialize_rag_db = None
+    query_context = None
 
 # Load environment variables
 load_dotenv()
@@ -610,7 +618,7 @@ def render_analysis_tab():
                         if ticker:
                             # Get relevant context from RAG
                             context = ""
-                            if st.session_state.rag_db:
+                            if RAG_AVAILABLE and st.session_state.rag_db:
                                 rag_results = query_context(
                                     f"Investment outlook for {ticker}",
                                     db_client=st.session_state.rag_db
@@ -1045,17 +1053,20 @@ def main():
 
         # RAG initialization
         st.subheader("Knowledge Base")
-        if st.button("🔄 Initialize RAG Database", use_container_width=True):
-            with st.spinner("Initializing knowledge base..."):
-                try:
-                    db_client = initialize_rag_db()
-                    st.session_state.rag_db = db_client
-                    st.success("✅ RAG database initialized!")
-                except Exception as e:
-                    st.error(f"❌ RAG initialization failed: {str(e)}")
+        if RAG_AVAILABLE:
+            if st.button("🔄 Initialize RAG Database", use_container_width=True):
+                with st.spinner("Initializing knowledge base..."):
+                    try:
+                        db_client = initialize_rag_db()
+                        st.session_state.rag_db = db_client
+                        st.success("✅ RAG database initialized!")
+                    except Exception as e:
+                        st.error(f"❌ RAG initialization failed: {str(e)}")
 
-        if st.session_state.rag_db:
-            st.success("✅ Knowledge base active")
+            if st.session_state.rag_db:
+                st.success("✅ Knowledge base active")
+        else:
+            st.info("ℹ️ Knowledge base feature not available in lite version")
 
         st.markdown("---")
 
