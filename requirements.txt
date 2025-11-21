@@ -1,21 +1,10 @@
-# Core Application - Lite Version (Fast Deploy)
-streamlit==1.31.0
-python-dotenv==1.0.1
-
-# AI/ML
-anthropic==0.18.1
-
-# Financial Data
-yfinance==0.2.36
-pandas==2.2.0
-numpy==1.26.3
-
-# Visualization
-plotly==5.18.0
-
-# Data Processing
-pyyaml==6.0.1
-Pillow==10.2.0
-
-# Utilities
-python-dateutil==2.8.2
+streamlit
+anthropic
+yfinance
+pandas
+numpy
+plotly
+pyyaml
+Pillow
+python-dotenv
+python-dateutil
