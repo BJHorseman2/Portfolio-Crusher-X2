@@ -33,7 +33,7 @@ class AIAnalyzer:
 
         # AI settings from config
         self.ai_settings = config.get('ai_settings', {})
-        self.model = self.ai_settings.get('model', 'claude-3-5-sonnet-20241022')
+        self.model = self.ai_settings.get('model', 'claude-3-5-sonnet-20240620')
         self.max_tokens = self.ai_settings.get('max_tokens', 4096)
         self.temperature = self.ai_settings.get('temperature', 0.7)
         self.max_retries = self.ai_settings.get('max_retries', 3)
