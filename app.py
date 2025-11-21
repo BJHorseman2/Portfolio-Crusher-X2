@@ -842,7 +842,7 @@ def render_rebalancing_tab():
                     """, unsafe_allow_html=True)
 
         # Trade recommendations
-        if st.session_state.rebalancing_trades:
+        if st.session_state.rebalancing_trades and isinstance(st.session_state.rebalancing_trades, dict):
             st.markdown("---")
             st.subheader("Recommended Trades")
 
