@@ -24,6 +24,12 @@ AI-powered portfolio analysis tool with tax loss harvesting and rebalancing reco
 
 **Bonds**: 20-40% based on risk tolerance
 
+## Documentation
+
+📚 **[Complete Setup Guide](SETUP_GUIDE.md)** - Detailed installation and configuration instructions
+💡 **[Usage Examples](USAGE_EXAMPLES.md)** - Real-world scenarios and workflows
+⚙️ **Configuration**: Edit `config.yaml` for your investment strategy
+
 ## Quick Start
 
 ### Prerequisites
@@ -138,5 +144,7 @@ Built with inspiration from:
 
 ---
 
-**Version**: 0.1.0 (MVP)
-**Status**: In Development 🚧
+**Version**: 1.0.0
+**Status**: Production Ready ✅
+
+Made with ❤️ for smarter portfolio management
