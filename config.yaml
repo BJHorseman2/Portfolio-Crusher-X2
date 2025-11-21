@@ -1,0 +1,191 @@
+# Portfolio Crusher X2 - Investment Philosophy Configuration
+
+investment_philosophy:
+  name: "Hub and Spoke Strategy"
+  description: "S&P 500 core with thematic satellite positions"
+  strategy_type: "core_satellite"
+
+# Equity Allocation Strategy
+equity_allocation:
+  hub:
+    name: "S&P 500 Core"
+    target_pct: 65
+    min_pct: 60
+    max_pct: 75
+    allowed_etfs:
+      - ticker: "SPY"
+        name: "SPDR S&P 500 ETF Trust"
+        provider: "State Street"
+      - ticker: "VOO"
+        name: "Vanguard S&P 500 ETF"
+        provider: "Vanguard"
+      - ticker: "IVV"
+        name: "iShares Core S&P 500 ETF"
+        provider: "BlackRock"
+
+  spokes:
+    name: "Thematic Satellites"
+    total_target_pct: 35
+    max_per_theme_pct: 10
+    min_per_theme_pct: 3
+
+    themes:
+      - name: "Artificial Intelligence"
+        category: "ai"
+        conviction: "high"
+        target_pct: 10
+        etfs:
+          - "BOTZ"  # Global Robotics & AI
+          - "ROBT"  # First Trust Robotics
+          - "QTEC"  # First Trust NASDAQ-100 Technology
+          - "ARKK"  # ARK Innovation ETF
+          - "IGV"   # iShares Expanded Tech-Software
+
+      - name: "Clean Energy"
+        category: "clean_energy"
+        conviction: "medium"
+        target_pct: 8
+        etfs:
+          - "ICLN"  # iShares Global Clean Energy
+          - "TAN"   # Invesco Solar ETF
+          - "QCLN"  # First Trust Clean Edge
+          - "PBW"   # Invesco WilderHill Clean Energy
+
+      - name: "Genomics & Biotech"
+        category: "genomics"
+        conviction: "medium"
+        target_pct: 5
+        etfs:
+          - "ARKG"  # ARK Genomic Revolution
+          - "XBI"   # SPDR S&P Biotech ETF
+          - "IBB"   # iShares Biotechnology ETF
+
+      - name: "FinTech"
+        category: "fintech"
+        conviction: "low"
+        target_pct: 5
+        etfs:
+          - "ARKF"  # ARK Fintech Innovation
+          - "FINX"  # Global X FinTech ETF
+          - "IPAY"  # ETFMG Prime Mobile Payments
+
+      - name: "Cloud Computing"
+        category: "cloud"
+        conviction: "medium"
+        target_pct: 7
+        etfs:
+          - "WCLD"  # WisdomTree Cloud Computing
+          - "SKYY"  # First Trust Cloud Computing
+          - "CLOU"  # Global X Cloud Computing
+
+# Bond Allocation
+bonds:
+  target_pct: 30
+  min_pct: 20
+  max_pct: 40
+  allowed_etfs:
+    - "BND"   # Vanguard Total Bond Market
+    - "AGG"   # iShares Core US Aggregate Bond
+    - "BNDX"  # Vanguard Total International Bond
+
+# Tax Loss Harvesting Settings
+tax_loss_harvesting:
+  enabled: true
+  wash_sale_days: 30
+  min_loss_threshold: 100  # Minimum loss in $ to consider harvesting
+  min_loss_pct: 3          # Minimum loss percentage to consider
+
+  # Replacement pairs for tax loss harvesting
+  replacement_pairs:
+    # S&P 500 Hub swaps
+    SPY: ["VOO", "IVV"]
+    VOO: ["SPY", "IVV"]
+    IVV: ["SPY", "VOO"]
+
+    # AI Theme
+    ARKK: ["QTEC", "IGV"]
+    QTEC: ["ARKK", "IGV"]
+    BOTZ: ["ROBT", "QTEC"]
+
+    # Clean Energy
+    ICLN: ["TAN", "QCLN"]
+    TAN: ["ICLN", "PBW"]
+    QCLN: ["ICLN", "TAN"]
+
+    # Genomics
+    ARKG: ["XBI", "IBB"]
+    XBI: ["ARKG", "IBB"]
+    IBB: ["ARKG", "XBI"]
+
+    # FinTech
+    ARKF: ["FINX", "IPAY"]
+    FINX: ["ARKF", "IPAY"]
+
+    # Cloud
+    WCLD: ["SKYY", "CLOU"]
+    SKYY: ["WCLD", "CLOU"]
+
+# Rebalancing Settings
+rebalancing:
+  frequency: "quarterly"
+  threshold_pct: 5  # Rebalance if allocation drifts by more than this
+  min_trade_size: 100  # Minimum trade size in dollars
+
+# Data Sources
+data_sources:
+  # Market data (Yahoo Finance is free, no API key needed)
+  market_data:
+    provider: "yahoo_finance"
+    cache_duration_minutes: 60
+
+  # Content sources for RAG context
+  content_sources:
+    youtube:
+      enabled: true
+      channels:
+        # Add your preferred investment channels/video IDs here
+        # Example format:
+        # - channel_id: "UC..."
+        #   name: "Channel Name"
+        #   topics: ["investing", "market analysis"]
+      videos: []
+
+    economist:
+      enabled: true
+      topics:
+        - "technology"
+        - "finance"
+        - "climate-change"
+        - "artificial-intelligence"
+
+    custom_sources:
+      # Add URLs to articles, PDFs, or other sources
+      urls: []
+
+# AI Analysis Settings
+ai_settings:
+  model: "claude-3-5-sonnet-20241022"
+  temperature: 0.7
+  max_tokens: 4096
+
+  # Position recommendation thresholds
+  recommendations:
+    strong_sell_threshold: -2.0    # Conviction score
+    sell_threshold: -1.0
+    hold_threshold: 0.0
+    buy_threshold: 1.0
+    strong_buy_threshold: 2.0
+
+# Security Settings
+security:
+  max_file_size_mb: 10
+  allowed_file_types:
+    - "image/jpeg"
+    - "image/jpg"
+    - "image/png"
+    - "application/pdf"
+
+  # Data retention
+  store_uploaded_images: false
+  store_analysis_results: true
+  data_retention_days: 90
